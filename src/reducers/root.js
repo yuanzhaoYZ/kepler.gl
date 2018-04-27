@@ -20,15 +20,10 @@
 
 import {handleActions} from 'redux-actions';
 
-import {actionFor, updateProperty} from '../actions/action-wrapper';
+import {_actionFor, _updateProperty} from '../actions/action-wrapper';
+import {keplerGlInit} from '../actions/actions';
 import {coreReducerFactory} from './core';
 import ActionTypes from 'constants/action-types';
-
-import {keplerGlInit} from '../actions/actions';
-/*
- * voyager reducer wrapper,
- * wraps multiple voyager state in one voyager
- */
 
 // INITIAL_STATE
 const initialCoreState = {};
@@ -67,8 +62,8 @@ export function provideInitialState(initialState) {
   return (state = initialCoreState, action) => {
     // update child states
     Object.keys(state).forEach(id => {
-      const updateItemState = coreReducer(state[id], actionFor(id, action));
-      state = updateProperty(state, id, updateItemState);
+      const updateItemState = coreReducer(state[id], _actionFor(id, action));
+      state = _updateProperty(state, id, updateItemState);
     });
 
     // perform additional state reducing (e.g. switch action.type etc...)
@@ -114,10 +109,10 @@ function decorate(target, savedInitialState = {}) {
       // for each entry in the staten
       Object.keys(nextState).forEach(id => {
         // update child states
-        nextState = updateProperty(
+        nextState = _updateProperty(
           nextState,
           id,
-          customReducer(nextState[id], actionFor(id, action))
+          customReducer(nextState[id], _actionFor(id, action))
         );
       });
 

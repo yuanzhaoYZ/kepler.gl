@@ -21,34 +21,33 @@
 </h1>
 <h3></h3>
 
-[Kepler.gl][web] is a data-agnostic, high-performance web-based application for visual exploration of large-scale geolocation data sets. Built on top of [deck.gl](http://uber.github.io/deck.gl/#/), kepler.gl can render millions of points representing thousands of trips and perform spatial aggregations on the fly.
+[<img width="120" alt="Kepler.gl" src="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/website/icons/kepler.gl-logo.png">](http://www.kepler.gl/)
 
-For what it is capable of, take a look at [kepler.gl demo app][demo-app].
+[<img width="600" alt="Kepler.gl Demo" src="https://eng.uber.com/wp-content/uploads/2018/05/image4-3-768x493.png">](https://uber.github.io/kepler.gl/#/demo)
 
-Kepler.gl is a redux component that uses redux reducer to store and manage state transitions.
-This package consists of a reducer and the UI components to render and customize the map.
+[Kepler.gl][web]is a data-agnostic, high-performance web-based application for visual exploration of large-scale geolocation data sets. Built on top of [Mapbox GL](https://www.mapbox.com) and [deck.gl](http://uber.github.io/deck.gl/#/), kepler.gl can render millions of points representing thousands of trips and perform spatial aggregations on the fly.
 
-For information on how to embed kepler.gl in your app take a look at [this tutorial][vis-academy] on vis.academy.
+Kepler.gl is also a React component that uses [Redux](https://redux.js.org/) to manage its state and data flow. It can be embedded into other React-Redux applications and is highly customizable. For information on how to embed kepler.gl in your app take a look at this step-by-step [tutorial][vis-academy] on vis.academy.
 
 ## Links
 - [Website][web]
 - [Demo][demo-app]
 - [Examples][examples]
+- [Get Started](./docs/get-started.md)
 - [App User guide][user-guide]
 - [Tutorial][vis-academy]
 - [Stack Overflow][stack]
 - [Contribution Guidelines][contributing]
-- API Docs - Coming Soon
+- [Api Refernece](./docs/api-reference/overview.md)
 
 ## Env
-Use Node v6 and above, older node versions have not been tested
-
+Use Node v6 and above, older node versions have not been tested.
 For best results, use [nvm](https://github.com/creationix/nvm) `nvm install`.
 
 ## Install kepler.gl
 Install node (`> 6`), yarn, and project dependencies
 
-```
+```sh
 npm install --save kepler.gl
 // or
 yarn add kepler.gl
@@ -345,35 +344,15 @@ const myCustomHeaderFactory = () => withState(
 
 ```
 #### 5. How to add data to map
-In order to interact with a kepler.gl instance and add new data to it the following methods are available:
-- updateVisData
-- addDataToMap
-It is also important to remember that Kepler.gl provides an easy API (```KeplerGlSchema.getConfigToSave```) to generate a dump of the current kepler instance configuration.
+To interact with a kepler.gl instance and add new data to it, you can dispatch __`addDataToMap`__ action from anywhere inside your app. It adds dataset to kepler.gl instance and update the full configuration (mapState, mapStyle, visState).
 
-##### addDataToMap
-This method is similar to UpdateVisData but it is able to update the full kepler.gl configuration (mapState, mapStyle, visState).
-This action takes an object as input with the following properties:
-```js
-{
-    datasets | object: same as UpdateVisData
-    options | object: same as UpdateVisData
-    config | object: this object will contain the full kepler.gl instance configuration {mapState, mapStyle, visState}.
-}
-```
+Kepler.gl provides an easy API `KeplerGlSchema.getConfigToSave` to generate a json blob of the current kepler instance configuration.
 
-<p id="config-notice"> It is important to notice that the config object value will always have higher precedence than the options properties.
-For instance, if you provide <code>{centerMap: true}</code> as part of the options object and in your config object you pass
-the mapState configuration with latitude and longitude define as it follows:</p>
+The options properties will alway have higher precedence than config object value.
+For instance, if you provide `{centerMap: true}` as part of the options object and in your config object you pass
+the mapState configuration with latitude and longitude define, the map will be centered based on the new data added in.
 
-```js
-config: {
-  mapState: {
-    latitude: 33.88608913680742,
-    longitude: -84.43459130456425
-  }
-}
-```
-the latter will be applied and the map view will be moved the defined coordinates.
+Read more about [addDataToMap](./api-reference/actions/actions.md#adddatatomap)
 
 [contributing]: contributing/CONTRIBUTING.md
 [demo-app]: https://uber.github.io/kepler.gl/#/demo
