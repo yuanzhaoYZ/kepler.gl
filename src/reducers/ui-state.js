@@ -20,13 +20,9 @@
 
 import {handleActions} from 'redux-actions';
 import ActionTypes from 'constants/action-types';
+
 import {
-  ADD_DATA_ID,
-  EXPORT_DATA_TYPE,
-  RATIOS,
-  RESOLUTIONS
-} from 'constants/default-settings';
-import {
+  INITIAL_UI_STATE,
   openDeleteModalUpdater,
   toggleModalUpdater,
   showExportDropdownUpdater,
@@ -45,61 +41,8 @@ import {
   setExportSelectedDatasetUpdater,
   setExportDataTypeUpdater,
   setExportFilteredUpdater,
-  setExportConfigUpdater,
   setExportDataUpdater
 } from './ui-state-updaters';
-
-export const DEFAULT_ACTIVE_SIDE_PANEL = 'layer';
-export const DEFAULT_MODAL = ADD_DATA_ID;
-
-export const DEFAULT_MAP_CONTROLS = {
-  visibleLayers: {
-    show: true,
-    active: false
-  },
-  mapLegend: {
-    show: true,
-    active: false
-  },
-  toggle3d: {
-    show: true
-  },
-  splitMap: {
-    show: true
-  }
-};
-
-export const DEFAULT_EXPORT_IMAGE = {
-  // user options
-  ratio: RATIOS.SCREEN,
-  resolution: RESOLUTIONS.ONE_X,
-  legend: false,
-  // exporting state
-  imageDataUri: '',
-  exporting: false
-};
-
-export const DEFAULT_EXPORT_DATA = {
-  selectedDataset: '',
-  dataType: EXPORT_DATA_TYPE.CSV,
-  filtered: true,
-  config: false, // no longer used, since we removed the option to export config from modal data export
-  data: false // this is used in modal config export
-};
-
-export const INITIAL_UI_STATE = {
-  readOnly: false,
-  activeSidePanel: DEFAULT_ACTIVE_SIDE_PANEL,
-  currentModal: DEFAULT_MODAL,
-  datasetKeyToRemove: null,
-  visibleDropdown: null,
-  // export image modal ui
-  exportImage: DEFAULT_EXPORT_IMAGE,
-  // export data modal ui
-  exportData: DEFAULT_EXPORT_DATA,
-  // map control panels
-  mapControls: DEFAULT_MAP_CONTROLS
-};
 
 const actionHandler = {
   [ActionTypes.TOGGLE_SIDE_PANEL]: toggleSidePanelUpdater,
@@ -119,7 +62,6 @@ const actionHandler = {
   [ActionTypes.SET_EXPORT_SELECTED_DATASET]: setExportSelectedDatasetUpdater,
   [ActionTypes.SET_EXPORT_DATA_TYPE]: setExportDataTypeUpdater,
   [ActionTypes.SET_EXPORT_FILTERED]: setExportFilteredUpdater,
-  [ActionTypes.SET_EXPORT_CONFIG]: setExportConfigUpdater,
   [ActionTypes.SET_EXPORT_DATA]: setExportDataUpdater
 };
 

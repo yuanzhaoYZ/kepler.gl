@@ -39,32 +39,3 @@ export {
 } from './action-wrapper';
 
 export {default as ActionTypes} from 'constants/action-types';
-
-import DeckGL, {ScatterplotLayer} from 'deck.gl';
-import React, {Component} from 'react';
-import ReactMapGL from 'react-map-gl';
-
-class MyMap extends Component {
-  render() {
-    const {viewport, points} = this.props;
-
-    const layers = [
-      new ScatterplotLayer({
-        id: 'scatterplot',
-        data: points,
-        getPosition: d => ([d.longitude, d.latitude]),
-        onHover: this._onHover
-      })
-    ];
-
-    <ReactMapGL
-     mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-     viewport={viewport}
-     onViewportChange={this._onViewportChange}>
-      <DeckGL
-        {...viewport}
-        layers={layers}/>
-    </ReactMapGL>
-  }
-}
-

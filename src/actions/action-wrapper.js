@@ -133,7 +133,7 @@ export const _actionFor = (id, action) =>
  *
  * const MapContainer = props => (
  *  <div>
- *   <button onClick=() => props.keplerGlDispatch(toggleSplitMap())/>
+ *   <button onClick={() => props.keplerGlDispatch(toggleSplitMap())}/>
  *  </div>
  * )
  *

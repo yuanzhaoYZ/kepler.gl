@@ -1,18 +1,18 @@
 ## Outline
 
 -  [Overview](1)
--  [Basic Usage](./basic-usage.md)
--  [Advanced Usage](./advanced-usage.md)
+-  [Basic Usage][basic-usage]
+-  [Advanced Usage][advanced-usage]
 -  [API]()
-  1. Components
-  2. Reducers
-  3. Actions and Updaters
-  4. Utilities
-  5. Schemas
+    1. [Components][components]
+    2. [Reducers][reducers]
+    3. [Actions and Updaters][actions-updaters]
+    4. [Data Processor][processors]
+    5. [Schemas][schemas]
 
 ## Overview
 
-Kepler.gl is a __Redux-connected__ component.  The library includes the UI components, a redux reducer, action handlers, and a set of utility functions. User simply needs to import the Kepler.gl UI component and mount the Kepler.gl reducer in their root reducer.
+Kepler.gl is a __Redux-connected__ component.  The library includes the UI components, redux reducers, action handlers, schema manager and a set of utility functions to process data. User simply needs to import the Kepler.gl UI component and mount the Kepler.gl reducer in their root reducer.
 
 ## Component
 The Kepler.gl UI component will call redux connect under the hood, and dispatch to the corresponding reducer instance.
@@ -58,3 +58,10 @@ export const mapStateReducerFactory = (initialState = {}) => handleActions(
 );
 ```
 
+[basic-usage]: ./basic-usage.md
+[advanced-usage]: ./advanced-usage.md
+[components]: ./components/overview.md
+[reducers]: ./reducers/overview.md
+[actions-updaters]: ./actions/overview.md
+[processors]: ./processors/overview.md
+[schemas]: ./schemas/overview.md

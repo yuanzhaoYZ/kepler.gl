@@ -32,7 +32,8 @@ import {
   setExportDataType,
   setExportFiltered
 } from 'actions/ui-state-actions';
-import reducer, {uiStateReducerFactory, INITIAL_UI_STATE}  from 'reducers/ui-state';
+import reducer, {uiStateReducerFactory}  from 'reducers/ui-state';
+import {INITIAL_UI_STATE} from 'reducers/ui-state-updaters';
 import {RATIOS, RESOLUTIONS, EXPORT_DATA_TYPE} from 'constants/default-settings';
 
 test('#uiStateReducer', t => {
@@ -62,15 +63,6 @@ test('#uiStateReducer -> TOGGLE_SIDE_PANEL', t => {
   };
 
   t.deepEqual(newReducer, expectedState, 'should update side panel');
-
-  const nextState = reducer(expectedState, toggleSidePanel('copyConfig'));
-
-  const expectedNextState = {
-    ...expectedState,
-    currentModal: 'copyConfig'
-  };
-
-  t.deepEqual(nextState, expectedNextState, 'should open copy config');
 
   const nextState2 = reducer(expectedState, toggleModal(null));
 
@@ -181,7 +173,7 @@ test('#uiStateReducer -> TOGGLE_MAP_CONTROL', t => {
 
 test('#uiStateReducer -> SET_EXPORT_SELECTED_DATASET', t => {
 
-  const newReducer = reducer(INITIAL_UI_STATE, setExportSelectedDataset({dataset: 'a'}));
+  const newReducer = reducer(INITIAL_UI_STATE, setExportSelectedDataset('a'));
 
   const expectedState = {
     ...INITIAL_UI_STATE,
@@ -198,7 +190,7 @@ test('#uiStateReducer -> SET_EXPORT_SELECTED_DATASET', t => {
 
 test('#uiStateReducer -> SET_EXPORT_DATA_TYPE', t => {
 
-  const newReducer = reducer(INITIAL_UI_STATE, setExportDataType({dataType: EXPORT_DATA_TYPE.JSON}));
+  const newReducer = reducer(INITIAL_UI_STATE, setExportDataType(EXPORT_DATA_TYPE.JSON));
 
   const expectedState = {
     ...INITIAL_UI_STATE,
@@ -215,7 +207,7 @@ test('#uiStateReducer -> SET_EXPORT_DATA_TYPE', t => {
 
 test('#uiStateReducer -> SET_EXPORT_FILTERED', t => {
 
-  const newReducer = reducer(INITIAL_UI_STATE, setExportFiltered({filtered: false}));
+  const newReducer = reducer(INITIAL_UI_STATE, setExportFiltered(false));
 
   const expectedState = {
     ...INITIAL_UI_STATE,

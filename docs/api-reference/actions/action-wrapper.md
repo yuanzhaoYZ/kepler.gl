@@ -13,7 +13,7 @@ Wrap an action into a forward action that only modify the state of a specific
 kepler.gl instance. kepler.gl reducer will look for signatures in the action to
 determine whether it needs to be forwarded to a specific instance reducer.
 
-`wrapTo` can be curried. You can create a curried action wrapper by only supply the `id` argument
+wrapTo can be curried. You can create a curried action wrapper by only supply the `id` argument
 
 A forward action looks like this
 
@@ -36,8 +36,10 @@ A forward action looks like this
  };
 ```
 
-param {string} id - Action types
-param {Object} action - the action object {type: string, payload: \*}
+**Parameters**
+
+-   `id` **[string][5]** The id to forward to
+-   `action` **[Object][6]** the action object {type: string, payload: \*}
 
 **Examples**
 
@@ -58,19 +60,19 @@ Whether an action is a forward action
 
 **Parameters**
 
--   `action` **[Object][5]** the action object
+-   `action` **[Object][6]** the action object
 
-Returns **[boolean][6]** whether the action is a forward action
+Returns **[boolean][7]** boolean - whether the action is a forward action
 
 ## unwrap
 
-Unwrap an action, the
+Unwrap an action
 
 **Parameters**
 
--   `action` **[Object][5]** the action object
+-   `action` **[Object][6]** the action object
 
-Returns **[Object][5]** action
+Returns **[Object][6]** unwrapped action
 
 ## forwardTo
 
@@ -78,26 +80,19 @@ Returns an action dispatcher that wraps and forwards the actions to a specific i
 
 **Parameters**
 
--   `id` **[string][7]** instance id
+-   `id` **[string][5]** instance id
 -   `dispatch` **[Function][8]** action dispatcher
 
 **Examples**
 
 ```javascript
-// component
-import KeplerGl from 'kepler.gl';
-
 // action and forward dispatcher
 import {toggleSplitMap, forwardTo} from 'kepler.gl/actions';
 import {connect} from 'react-redux';
 
 const MapContainer = props => (
  <div>
-  <button onClick=() => props.keplerGlDispatch(toggleSplitMap())/>
-  <KeplerGl
-   id="foo"
-   mapboxApiAccessToken={token}
-  />
+  <button onClick={() => props.keplerGlDispatch(toggleSplitMap())}/>
  </div>
 )
 
@@ -120,10 +115,10 @@ export default connect(
 
 [4]: #forwardto
 
-[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[6]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
 [8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function

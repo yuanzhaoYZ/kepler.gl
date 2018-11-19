@@ -8,7 +8,7 @@ Main Kepler.gl Component
 
 **Parameters**
 
--   `props` **[Object][1]** 
+-   `props` **[Object][1]**
     -   `props.id` **[string][2]** _required_-   Default: `map`
             The id of this KeplerGl instance. `id` is required if you have multiple
             KeplerGl instances in your app. It defines the prop name of the KeplerGl state that is
@@ -18,7 +18,7 @@ Main Kepler.gl Component
     -   `props.mapboxApiAccessToken` **[string][2]** _required_You can create a free account at [www.mapbox.com][3] and create a token at
         [www.mapbox.com/account/access-tokens][4]
     -   `props.width` **[Number][5]** _required_ Width of the KeplerGl UI.
--   `ctx`  
+-   `ctx`
 
 [1]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 

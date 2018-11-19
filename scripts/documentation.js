@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Uber Technologies, Inc.
+// Copyright (c) 2019 Uber Technologies, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,14 +18,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+require('babel-polyfill');
 import documentation from 'documentation';
 import fs from 'fs';
-import {resolve} from 'path';
+import {resolve, join} from 'path';
+import streamArray from 'stream-array';
+import vfs from 'vinyl-fs';
 
 const INPUT_CONFIG = {
   shallow: true,
   access: ['public'],
   'document-exported': true
+};
+
+const HTML_CONFIG = {
+  shallow: false,
+  access: ['public'],
+  'document-exported': true,
+  toc: [
+    {
+      name: 'Action Wrappers',
+      file: resolve('./docs/api-reference/actions/action-wrapper.md'),
+      description: 'Here are some actions',
+      children: [
+        'wrapTo',
+        'isForwardAction',
+        'unwrap',
+        'forwardTo'
+      ]
+    }
+  ]
 };
 
 const OUT_CONFIG = {
@@ -43,8 +65,8 @@ const TREE = {
     {
       path: 'actions',
       children: [
-        // 'actions',
-        'action-wrapper',
+        'index',
+        // 'action-wrapper',
         // 'identity-actions',
         // 'vis-state-actions',
         // 'map-state-actions',
@@ -52,19 +74,42 @@ const TREE = {
         // 'ui-state-actions'
       ]
     }
-  ]
+  ],
+  path: '',
+  children: [
+    {
+      path: 'reducers',
+      children: [
+        ['root.js', 'reducers.md'],
+        ['vis-state-updaters.js', 'vis-state.md'],
+        ['map-state-updaters.js', 'map-state.md'],
+        ['map-style-updaters.js', 'map-style.md'],
+        ['ui-state-updaters.js', 'ui-state.md']
+      ]
+    }
+  ],
+}
+
+function buildHtmlDocs() {
+  documentation.build([resolve('./src/actions/index.js')], HTML_CONFIG)
+    .then(documentation.formats.html)
+    .then(output => {
+      streamArray(output).pipe(vfs.dest(resolve('./docs/api-reference/html')))
+    });
 }
 
 
-function buildDocs(nodePath, node) {
+function buildMdDocs(nodePath, node) {
   const {path, children} = node;
   const joinPath = nodePath ? `${nodePath}/${path}` : path;
 
   children.forEach(child => {
-    if (typeof child === 'string') {
+    if (typeof child === 'string' || Array.isArray(child)) {
+        const inF  = Array.isArray(child) ? child[0] : child;
+        const outF = Array.isArray(child) ? child[1] : child;
 
-        const inputPath = `${PATHS.src}/${joinPath}/${child}.js`;
-        const outputPath = `${PATHS.api}/${joinPath}/${child}.md`;
+        const inputPath = join(PATHS.src, joinPath, inF);
+        const outputPath = join(PATHS.api, joinPath, outF);
 
         console.log(`build docs ${inputPath} -> ${outputPath}`);
         documentation.build([inputPath], INPUT_CONFIG)
@@ -72,6 +117,7 @@ function buildDocs(nodePath, node) {
             // res is an array of parsed comments with inferred properties
             // and more: everything you need to build documentation or
             // any other kind of code data.
+            console.log(res)
             return documentation.formats.md(res, OUT_CONFIG)
           })
           .then(output => {
@@ -79,12 +125,13 @@ function buildDocs(nodePath, node) {
             fs.writeFileSync(outputPath, output);
           });
     } else {
-      buildDocs(joinPath, child);
+      buildMdDocs(joinPath, child);
     }
   });
 }
 
-buildDocs(null, TREE);
+buildMdDocs(null, TREE);
+// buildHtmlDocs();
 
 // documentation.build(['./src/actions'], INPUT_CONFIG)
 //   .then(res => {

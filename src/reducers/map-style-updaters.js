@@ -59,6 +59,18 @@ const getDefaultState = () => {
   };
 };
 
+/**
+ * Default initial `mapStyle`
+ * @constant
+ * @property {string} styleType - Default: 'dark'
+ * @property {Object} visibleLayerGroups - Default: {}
+ * @property {Object} topLayerGroups - Default: {}
+ * @property {Object} mapStyles - mapping from style key to style obejct
+ * @property {string} mapboxApiAccessToken - Default: null
+ * @property {Object} inputStyle - Default: {}
+ * @property {Array} threeDBuildingColor - Default: [r, g, b]
+ * @public
+ */
 export const INITIAL_MAP_STYLE = getDefaultState();
 
 /**
@@ -120,7 +132,7 @@ function getMapStyles({
 function get3DBuildingColor(style) {
   // set building color to be the same as the background color.
   const backgroundLayer = (style.style.layers || []).find(({id}) => id === 'background');
-  const buildingColor = backgroundLayer && backgroundLayer.paint && backgroundLayer.paint['background-color'] ? 
+  const buildingColor = backgroundLayer && backgroundLayer.paint && backgroundLayer.paint['background-color'] ?
                         backgroundLayer.paint['background-color'] : DEFAULT_BLDG_COLOR;
   // brighten or darken building based on style
   const operation = style.id.match(/(?=(dark|night))/) ? 'brighter':  'darker';

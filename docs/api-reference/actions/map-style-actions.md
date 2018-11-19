@@ -12,16 +12,12 @@ This action is called when user click confirm after putting in a valid style url
 It should not be called from outside kepler.gl without a valid `inputStyle` in the `mapStyle` reducer.
 param {void}
 
-Returns **{type: ActionTypes.ADD_CUSTOM_MAP_STYLE}** 
-
 ## inputMapStyle
 
 Add map style from user input to reducer and set it to current style
 This action is called when user click confirm after putting in a valid style url in the custom map style dialog.
 It should not be called from outside kepler.gl without a valid `inputStyle` in the `mapStyle` reducer.
 param {void}
-
-Returns **{type: ActionTypes.INPUT_MAP_STYLE, payload: inputStyle}** 
 
 [1]: #addcustommapstyle
 
