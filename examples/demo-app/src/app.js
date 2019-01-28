@@ -138,7 +138,7 @@ class App extends Component {
   };
 
   _showBanner = () => {
-    this.setState({showBanner: true});
+    this.setState({showBanner: false});
   };
 
   _hideBanner = () => {
@@ -306,6 +306,7 @@ class App extends Component {
             <KeplerGl
               mapboxApiAccessToken={MAPBOX_TOKEN}
               id="map"
+              appName="Mobiquity Networks"
               /*
                * Specify path to keplerGl state, because it is not mount at the root
                */
