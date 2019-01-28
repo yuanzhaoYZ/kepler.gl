@@ -41,9 +41,9 @@ import {
   CursorClick
 } from 'components/common/icons';
 
-export const KEPLER_GL_NAME = 'kepler.gl';
+export const KEPLER_GL_NAME = 'Mobiquity Networks';
 export const KEPLER_GL_VERSION = 'v1.0';
-export const KEPLER_GL_WEBSITE = 'http://kepler.gl/';
+export const KEPLER_GL_WEBSITE = 'https://mobiquitynetworks.com/';
 
 export const DIMENSIONS = {
   sidePanel: {
@@ -133,6 +133,20 @@ export const DEFAULT_MAP_STYLES = [
     id: 'dark',
     label: 'Dark',
     url: 'mapbox://styles/uberdata/cjoqbbf6l9k302sl96tyvka09',
+    icon: `${ICON_PREFIX}/UBER_DARK_V2.png`,
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
+    id: 'satellite',
+    label: 'Satellite',
+    url: 'mapbox://styles/yzhao0086/cjrfq033w6paw2sk3fyw80tz0',
+    icon: `${ICON_PREFIX}/UBER_DARK_V2.png`,
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
+    id: 'basic',
+    label: 'Basic',
+    url: 'mapbox://styles/yzhao0086/cjrfq9hd17bs42sqlhtt8dhb5',
     icon: `${ICON_PREFIX}/UBER_DARK_V2.png`,
     layerGroups: DEFAULT_LAYER_GROUPS
   },
